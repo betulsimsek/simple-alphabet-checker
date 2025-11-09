@@ -1,0 +1,12 @@
+{
+  "httpMethod": "GET",
+  "path": "/hello-world",
+  "queryStringParameters": {
+    "name": "Alice"
+  },
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": null,
+  "isBase64Encoded": false
+}

@@ -1,0 +1,586 @@
+{
+	"info": {
+		"_postman_id": "12345678-1234-1234-1234-123456789012",
+		"name": "Simple Alphabet Checker API",
+		"description": "A Go HTTP API that checks if names start with letters in the first half of the alphabet (A-M).\n\n## Behavior\n- **First half (A-M)**: Returns `200 OK` with `{\"message\": \"Hello {name}\"}`\n- **Second half (N-Z)**: Returns `400 Bad Request` with `{\"error\": \"Invalid Input\"}`\n- **Missing/empty name**: Returns `400 Bad Request` with `{\"error\": \"Invalid Input\"}`\n- **Non-alphabetic first character**: Returns `400 Bad Request` with `{\"error\": \"Invalid Input\"}`",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12345678"
+	},
+	"item": [
+		{
+			"name": "Valid Names (A-M)",
+			"item": [
+				{
+					"name": "Alice (Uppercase A)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has correct message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"Hello Alice\");",
+									"});",
+									"",
+									"pm.test(\"Content-Type is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/hello-world?name=Alice",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hello-world"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Alice"
+								}
+							]
+						},
+						"description": "Test with 'Alice' - should return Hello Alice (200 OK)"
+					},
+					"response": []
+				},
+				{
+					"name": "mary (Lowercase m)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has correct message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"Hello mary\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/hello-world?name=mary",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hello-world"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "mary"
+								}
+							]
+						},
+						"description": "Test with 'mary' - should return Hello mary (200 OK)"
+					},
+					"response": []
+				},
+				{
+					"name": "Bob (Letter B)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has correct message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"Hello Bob\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/hello-world?name=Bob",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hello-world"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Bob"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Test cases for valid names that start with A-M"
+		},
+		{
+			"name": "Invalid Names (N-Z)",
+			"item": [
+				{
+					"name": "Zane (Letter Z)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response has error message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.eql(\"Invalid Input\");",
+									"});",
+									"",
+									"pm.test(\"Content-Type is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/hello-world?name=Zane",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hello-world"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Zane"
+								}
+							]
+						},
+						"description": "Test with 'Zane' - should return Invalid Input (400 Bad Request)"
+					},
+					"response": []
+				},
+				{
+					"name": "nancy (Lowercase n)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response has error message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.eql(\"Invalid Input\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/hello-world?name=nancy",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hello-world"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "nancy"
+								}
+							]
+						},
+						"description": "Test with 'nancy' - should return Invalid Input (400 Bad Request)"
+					},
+					"response": []
+				},
+				{
+					"name": "Paul (Letter P)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response has error message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.eql(\"Invalid Input\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/hello-world?name=Paul",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hello-world"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Paul"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Test cases for invalid names that start with N-Z"
+		},
+		{
+			"name": "Edge Cases",
+			"item": [
+				{
+					"name": "Missing Name Parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response has error message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.eql(\"Invalid Input\");",
+									"});",
+									"",
+									"pm.test(\"Content-Type is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/hello-world",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hello-world"
+							]
+						},
+						"description": "Test without name parameter - should return Invalid Input (400 Bad Request)"
+					},
+					"response": []
+				},
+				{
+					"name": "Empty Name Parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response has error message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.eql(\"Invalid Input\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/hello-world?name=",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hello-world"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Test with empty name parameter - should return Invalid Input (400 Bad Request)"
+					},
+					"response": []
+				},
+				{
+					"name": "Name with Spaces Only",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response has error message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.eql(\"Invalid Input\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/hello-world?name=%20%20%20",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hello-world"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "   "
+								}
+							]
+						},
+						"description": "Test with spaces only - should return Invalid Input (400 Bad Request)"
+					},
+					"response": []
+				},
+				{
+					"name": "Name Starting with Number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response has error message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.eql(\"Invalid Input\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/hello-world?name=1Alice",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hello-world"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "1Alice"
+								}
+							]
+						},
+						"description": "Test with name starting with number - should return Invalid Input (400 Bad Request)"
+					},
+					"response": []
+				},
+				{
+					"name": "Name Starting with Special Character",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response has error message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.eql(\"Invalid Input\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/hello-world?name=@Alice",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hello-world"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "@Alice"
+								}
+							]
+						},
+						"description": "Test with name starting with special character - should return Invalid Input (400 Bad Request)"
+					},
+					"response": []
+				}
+			],
+			"description": "Edge case scenarios for comprehensive testing"
+		},
+		{
+			"name": "HTTP Method Tests",
+			"item": [
+				{
+					"name": "POST Method (Should Fail)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 405 or 400\", function () {",
+									"    pm.expect([400, 405]).to.include(pm.response.code);",
+									"});",
+									"",
+									"pm.test(\"Response indicates method not allowed or error\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.be.oneOf([\"Method Not Allowed\", \"Invalid Input\"]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Alice\"}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/hello-world?name=Alice",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hello-world"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Alice"
+								}
+							]
+						},
+						"description": "Test POST method - should return Method Not Allowed or error"
+					},
+					"response": []
+				}
+			],
+			"description": "Test different HTTP methods"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://2en31mhkrj.execute-api.eu-west-1.amazonaws.com/prod",
+			"type": "string",
+			"description": "Production API Gateway URL"
+		},
+		{
+			"key": "localUrl",
+			"value": "http://localhost:8080",
+			"type": "string",
+			"description": "Local development server URL"
+		}
+	]
+}

@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Simple Alphabet Checker API
+
+Globals:
+  Function:
+    Timeout: 10
+    MemorySize: 128
+    Runtime: provided.al2023
+
+Resources:
+  AlphabetCheckerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: simple-alphabet-checker
+      CodeUri: ./
+      Handler: bootstrap
+      Runtime: provided.al2023
+      Events:
+        HelloWorldApi:
+          Type: Api
+          Properties:
+            Path: /hello-world
+            Method: GET
+      Environment:
+        Variables:
+          ENV: production
+
+Outputs:
+  AlphabetCheckerApi:
+    Description: "API Gateway endpoint URL for Simple Alphabet Checker"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello-world"
+  AlphabetCheckerFunction:
+    Description: "Lambda Function ARN"
+    Value: !GetAtt AlphabetCheckerFunction.Arn
